@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+       <title>Travel Dashboard</title>
+                 {% load staticfiles %}
+            <link rel="stylesheet" href="{% static 'app_travel/style/style.css' %}">
+    </head>
+    <body>
+     <a href = {% url 'travels:home_page'%} >Home</a>
+     <a href = {% url 'travels:logout'%}>Logout</a>
+ {{context}}
+        <h1> {{trip.destination}}</h1>
+            <p> Planned By : {{trip.tripuser.name}}</p>
+            <p> Description : {{trip.tripdesc}}</p>
+            <p> Travel Date From : {{trip.startdate}}</p>
+            <p> Travel Date To :{{trip.returndate}}</p>
+           
+        <h1> Other User's joining the trip</h1>
+
+             {%for jointrip in trip.joinpeople.all %}
+                    <p><strong>{{jointrip.name}}</strong><p>
+                        
+             {% endfor %}
+              <p>{{name}}</p>
+
+             

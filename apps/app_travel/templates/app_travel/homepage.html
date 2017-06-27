@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+    <head>
+       <title>Travel Dashboard</title>
+                 {% load staticfiles %}
+            <link rel="stylesheet" href="{% static 'app_travel/style/style.css' %}">
+        
+   
+    </head>
+    <body>
+         <div id ="error" >
+                {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+             
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+         </div>
+        <p>
+      <h1>Hello {{name}}!</h1>
+      <a href = {% url 'travels:logout'%}>Logout</a>
+
+      <h4> Your Trip Schedules</h4>
+      <table style="width:50%">
+            <tr>
+                <th>Destination</th>
+                <th>Travel Start Date </th>
+                <th>Travel End Date </th>
+                <th>Plan </th>
+            </tr>
+           
+            {% for trip in Tripscheduledata %}
+                {% if trip.tripuser.id == userid %}
+                <tr>
+                     
+                        <td><a href={% url 'travels:destination' trip.id %} target="_blank">{{trip.destination}}</td>
+                        <td>{{trip.startdate}}</td>
+                        <td>{{trip.returndate}}</td>
+                        <td>{{trip.plan}}</td>
+                     </tr> 
+                {%endif%}
+            {% endfor %}
+          
+        </table>  
+
+      <h4> Other User's Travel Plans</h4>
+      <table style="width:50%">
+            <tr>
+                <th>Name</th>
+                <th>Destination</th>
+                <th>Travel Start Date </th>
+                <th>Travel End Date </th>
+                <th>Plan </th>
+                <th>Do You Want to Join? </th>
+            </tr>
+           
+            {% for trip in Tripscheduledata %}
+                {% if trip.tripuser.id != userid %}
+                <tr>
+                        <td>{{trip.tripuser.name}}</td>
+                        <td><a href={% url 'travels:destination' trip.id %} target="_blank">{{trip.destination}}</td>
+                        <td>{{trip.startdate}}</td>
+                        <td>{{trip.returndate}}</td>
+                        <td>{{trip.plan}}</td>
+                        <td><a href = {% url 'travels:addlike' trip.id%}>Join</a> </p>
+                     </tr> 
+                {%endif%}
+            {% endfor %}
+          
+        </table>  
+
+        <a href = {% url 'travels:add_travelplan'%}>Add Travel Plan</a>
+           

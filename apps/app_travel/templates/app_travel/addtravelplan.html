@@ -1,0 +1,47 @@
+<html>
+    <head>
+       <title>Add Travel Plan</title>
+                 {% load staticfiles %}
+            <link rel="stylesheet" href="{% static 'app_travel/style/style.css' %}">
+    </head>
+    <body>
+    <p>
+     <a href = {% url 'travels:home_page'%} >Home</a>
+     <a href = {% url 'travels:logout'%}>Logout</a>
+    </p>
+       <div id ="error" >
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+             
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+       </div> 
+    <h1>Add a Trip</h1>
+
+     <form action="{% url 'travels:add_travelplan'%}" method ="post">
+        {% csrf_token %}
+        <p>
+        <label for="destination">Destination:</label>
+        <input type="text" id ="destination" name="destination">
+        </p>
+        <p>
+        <label for="description">Description:</label>
+        <input type="text" id ="description" name="description">
+        </p>
+        <p>
+        <label for="plan">Plan:</label>
+        <input type="text" id ="plan" name="plan">
+        </p>
+        <p>
+        <label for="startdate">Travel Date From:</label>
+        <input type="date" id ="startdate" name="startdate">
+        </p>
+        <p>
+        <label for="returndate">Travel Date To:</label>
+        <input type="date" id ="enddate" name="returndate">
+        </p>
+        <p><input id="submits" type="submit" value="Add"></p>
+        </form>
